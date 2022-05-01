@@ -167,17 +167,17 @@ Lets write 100:</p>
 <p>The <strong>`</strong> character can be found be just below the Escape key and just above the Tab key.</p>
 </blockquote>
 <p>It is being evaluated like this:</p>
-<pre><code class="language-mermaid">flowchart TD;
+<pre class="mermaid">flowchart TD;
     A[&quot;[` mew mew [+ mew mew]&quot;] --&gt; B[&quot;[` mew mew [2]]&quot;]
     B--&gt;C[&quot;[` 1 1 2]&quot;]
     C -- Output --&gt; D[112]
-</code></pre>
+</pre>
 <p>But If we remove the <strong>`</strong> character and it is not being assigned to a variable, it is going to be evaluated like this:</p>
-<pre><code class="language-mermaid">flowchart TD;
+<pre class="mermaid">flowchart TD;
     A[&quot;[ mew mew [+ mew mew]]&quot;] --&gt; B[&quot;[mew mew 2]&quot;]
     B--&gt;C[&quot;[ 1 1 2]&quot;]
     C--&gt;D{Error: No operation to do!}
-</code></pre>
+</pre>
 
                     </main>
 
