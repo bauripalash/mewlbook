@@ -4,3 +4,16 @@ language = "en"
 multilingual = false
 src = "src"
 title = "The Mewl Language"
+description = "User Guide for the mewl programming language"
+
+[preprocessor]
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[output]
+
+[output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
+
+
