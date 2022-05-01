@@ -13,7 +13,12 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v2
-
+      - name: Install Rust 
+        run: | 
+          rustup set profile minimal 
+          rustup toolchain install stable 
+          rustup default stable
+          cargo install mdbook-mermaid
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
