@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Numbers - The Mewl Language</title>
+        <title>Basic Operations - The Mewl Language</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="User Guide for the mewl programming language">
@@ -77,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="numbers.html" class="active"><strong aria-hidden="true">2.</strong> Numbers</a></li><li class="chapter-item expanded "><a href="ops.html"><strong aria-hidden="true">3.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="stdout_stdin.html"><strong aria-hidden="true">4.</strong> Stdout & Stdin</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="numbers.html"><strong aria-hidden="true">2.</strong> Numbers</a></li><li class="chapter-item expanded "><a href="ops.html" class="active"><strong aria-hidden="true">3.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="stdout_stdin.html"><strong aria-hidden="true">4.</strong> Stdout & Stdin</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -136,50 +136,57 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="numbers"><a class="header" href="#numbers">Numbers</a></h1>
-<p>There is no concept of traditional numbers  in mewl instead we use <code>mew</code>s.
-For example you want to write <code>5</code> you could do something like this</p>
-<pre><code class="language-lisp">mewmewmewmewmew
+                        <h1 id="basic-operations"><a class="header" href="#basic-operations">Basic Operations</a></h1>
+<h2 id="binary-operations"><a class="header" href="#binary-operations">Binary Operations</a></h2>
+<p>Mewl supports few commonly used binary operators such as addition, subtraction, division, multiplication etc.</p>
+<table><thead><tr><th style="text-align: center">Operation</th><th style="text-align: center">Symbol</th><th style="text-align: center">Notes</th></tr></thead><tbody>
+<tr><td style="text-align: center">Addition</td><td style="text-align: center">+</td><td style="text-align: center">-</td></tr>
+<tr><td style="text-align: center">Subtraction</td><td style="text-align: center">-</td><td style="text-align: center">-</td></tr>
+<tr><td style="text-align: center">Multiplication</td><td style="text-align: center">*</td><td style="text-align: center">-</td></tr>
+<tr><td style="text-align: center">Division</td><td style="text-align: center">/</td><td style="text-align: center">[/ m1 m2 m3] -&gt; m1 ÷ m2 ÷ m3</td></tr>
+<tr><td style="text-align: center">Power</td><td style="text-align: center">**</td><td style="text-align: center">Evaluates just like division</td></tr>
+<tr><td style="text-align: center">Remainder</td><td style="text-align: center">%</td><td style="text-align: center">evaluates just like division</td></tr>
+</tbody></table>
+<h2 id="unary-minus-operation"><a class="header" href="#unary-minus-operation">Unary Minus Operation</a></h2>
+<p>There're not specific way to use unary minus Operations in mewl, for example, [+ mew -mew]
+This should've been evaluated like this , (+1 -1) = 0. But mewl will throw an error if you do something like that. If we want to get -1, we have to do something like this</p>
+<pre><code class="language-lisp">[- [- mew mew] mew]
 </code></pre>
-<p>or maybe 2</p>
-<pre><code class="language-lisp">mewmew
-</code></pre>
-<p>So basically 1 <code>mew</code> is equivalent to 1; 2 <code>mew</code>s is equivalent to 2 and so on.</p>
-<p>:warning:  Important Note: We don't have zero, to get zero we use subtraction <code>[- mew mew]</code> (it's like <code>1-1</code> = 0) [Mathematical operations will be discussed later]</p>
-<p>But what about large numbers like 100 , 2022 , 500 or maybe <code>-10</code> , <code>-3.1</code>, for that we have some shortcuts, like these :
-To write large numbers we can use mathematics, like <code>[* mewmew mewmewmewmewmew]</code> is equal to 10, or multiplying that expression with itself we can get 100. But that's cumbersome and complicated! Instead we have a simpler (relatively) syntax shortcut.
-Lets write 100:</p>
-<pre><code class="language-lisp">[mew [- mew mew] [- mew mew]]
-</code></pre>
-<p>How about 2022:</p>
-<pre><code class="language-lisp">[mewmew [- mew mew] mewmew mewmew]
-</code></pre>
-<p>Above two examples will only work when assigning to a variable, but if we want to use these expressions anywhere we have to put this <strong>'</strong> single single quote character just after the opening bracket. Something like this:</p>
-<pre><code class="language-lisp">[' mew mew [+ mew mew]] //is equal to 112
-</code></pre>
-<blockquote>
-</blockquote>
-<p>It is being evaluated like this:</p>
-<pre class="mermaid">flowchart TD;
-    A[&quot;[' mew mew [+ mew mew]&quot;] --&gt; B[&quot;[' mew mew [2]]&quot;]
-    B--&gt;C[&quot;[' 1 1 2]&quot;]
-    C -- Output --&gt; D[112]
-</pre>
-<p>But If we remove this <strong>'</strong> character and it is not being assigned to a variable or being printed to the stdout, it is going to be evaluated like this and will throw an error:</p>
-<pre class="mermaid">flowchart TD;
-    A[&quot;[ mew mew [+ mew mew]]&quot;] --&gt; B[&quot;[mew mew 2]&quot;]
-    B--&gt;C[&quot;[ 1 1 2]&quot;]
-    C--&gt;D{Error: No operation to do!}
-</pre>
+<p>It's basically, \(0-x = -x\) </p>
+<h2 id="bitwise-operations"><a class="header" href="#bitwise-operations">Bitwise Operations</a></h2>
+<p>⚠️ Important Reminder : As Bitwise operations cannot be applied on floating point numbers; and in mewl all numbers are 64bit floats, so before doing any bitwise operation numbers are converted to 64bit signed integers and the answer returned is converted to float from signed integer</p>
+<table><thead><tr><th style="text-align: center">Operation</th><th style="text-align: center">Symbol</th><th style="text-align: center">Notes</th></tr></thead><tbody>
+<tr><td style="text-align: center">Shift right</td><td style="text-align: center">&gt;&gt;</td><td style="text-align: center">[&gt;&gt; m1 m2 m3] -&gt; m1 &gt;&gt; m2 &gt;&gt; m3</td></tr>
+<tr><td style="text-align: center">Shift Left</td><td style="text-align: center">&lt;&lt;</td><td style="text-align: center">Same as above</td></tr>
+<tr><td style="text-align: center">XOR</td><td style="text-align: center">^</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">AND</td><td style="text-align: center">&amp;&amp;</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">OR</td><td style="text-align: center">##</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">NOT</td><td style="text-align: center">!!</td><td style="text-align: center">[Note1]</td></tr>
+</tbody></table>
+<p>🙀 [Note1] : As bitwise not <code>!!</code> Is an unary operation there can be unexpected behaviors if applied to an expression list, for that it will only be applied on the first element of an expression.</p>
+<h2 id="comparisons-boolean-operations"><a class="header" href="#comparisons-boolean-operations">Comparisons (Boolean Operations)</a></h2>
+<p>Important Note: In mewl <code>True = 1.0</code> (mew) and <code>False = 0.0</code> ([- mew mew])</p>
+<table><thead><tr><th style="text-align: center">Operation</th><th style="text-align: center">Symbol</th><th style="text-align: center">Note</th></tr></thead><tbody>
+<tr><td style="text-align: center">Is equal</td><td style="text-align: center">==</td><td style="text-align: center">[== m1 m2 m3] -&gt; m1== m2==m3</td></tr>
+<tr><td style="text-align: center">Not equal</td><td style="text-align: center">!=</td><td style="text-align: center">similar to previous</td></tr>
+<tr><td style="text-align: center">Less than</td><td style="text-align: center">&lt;</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">Less than or equal</td><td style="text-align: center">&lt;=</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">Greater than</td><td style="text-align: center">&gt;</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">Greater than or equal</td><td style="text-align: center">&gt;=</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">Or</td><td style="text-align: center">#</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">And</td><td style="text-align: center">&amp;</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">Not</td><td style="text-align: center">!</td><td style="text-align: center">As this is an unary operation so it's applied on the first element of the given expression</td></tr>
+</tbody></table>
+<h1 id=""><a class="header" href="#"></a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="numbers.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="ops.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="stdout_stdin.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -188,10 +195,10 @@ Lets write 100:</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="numbers.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="ops.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="stdout_stdin.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

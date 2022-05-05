@@ -26,6 +26,8 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -76,7 +78,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="numbers.html"><strong aria-hidden="true">2.</strong> Numbers</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="numbers.html"><strong aria-hidden="true">2.</strong> Numbers</a></li><li class="chapter-item expanded "><a href="ops.html"><strong aria-hidden="true">3.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="stdout_stdin.html"><strong aria-hidden="true">4.</strong> Stdout & Stdin</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -160,24 +162,101 @@ Lets write 100:</p>
 <p>How about 2022:</p>
 <pre><code class="language-lisp">[mewmew [- mew mew] mewmew mewmew]
 </code></pre>
-<p>Above two examples will only work when assigning to a variable, but if we want to use these expressions anywhere we have to put this <strong>`</strong> character just after the opening bracket. Something like this:</p>
-<pre><code class="language-lisp">[` mew mew [+ mew mew]] //is equal to 112
+<p>Above two examples will only work when assigning to a variable, but if we want to use these expressions anywhere we have to put this <strong>'</strong> single single quote character just after the opening bracket. Something like this:</p>
+<pre><code class="language-lisp">[' mew mew [+ mew mew]] //is equal to 112
 </code></pre>
 <blockquote>
-<p>The <strong>`</strong> character can be found be just below the Escape key and just above the Tab key.</p>
 </blockquote>
 <p>It is being evaluated like this:</p>
 <pre class="mermaid">flowchart TD;
-    A[&quot;[` mew mew [+ mew mew]&quot;] --&gt; B[&quot;[` mew mew [2]]&quot;]
-    B--&gt;C[&quot;[` 1 1 2]&quot;]
-    C -- Output --&gt; D[112]
+    A[&quot;[' mew mew [+ mew mew]&quot;] --&gt; B[&quot;[' mew mew [2]]&quot;]
+    B--&gt;C[&quot;[' 1 1 2]&quot;]
+    C -- Output --&gt; D[112]
 </pre>
-<p>But If we remove the <strong>`</strong> character and it is not being assigned to a variable, it is going to be evaluated like this:</p>
+<p>But If we remove this <strong>'</strong> character and it is not being assigned to a variable or being printed to the stdout, it is going to be evaluated like this and will throw an error:</p>
 <pre class="mermaid">flowchart TD;
     A[&quot;[ mew mew [+ mew mew]]&quot;] --&gt; B[&quot;[mew mew 2]&quot;]
     B--&gt;C[&quot;[ 1 1 2]&quot;]
     C--&gt;D{Error: No operation to do!}
 </pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="basic-operations"><a class="header" href="#basic-operations">Basic Operations</a></h1>
+<h2 id="binary-operations"><a class="header" href="#binary-operations">Binary Operations</a></h2>
+<p>Mewl supports few commonly used binary operators such as addition, subtraction, division, multiplication etc.</p>
+<table><thead><tr><th style="text-align: center">Operation</th><th style="text-align: center">Symbol</th><th style="text-align: center">Notes</th></tr></thead><tbody>
+<tr><td style="text-align: center">Addition</td><td style="text-align: center">+</td><td style="text-align: center">-</td></tr>
+<tr><td style="text-align: center">Subtraction</td><td style="text-align: center">-</td><td style="text-align: center">-</td></tr>
+<tr><td style="text-align: center">Multiplication</td><td style="text-align: center">*</td><td style="text-align: center">-</td></tr>
+<tr><td style="text-align: center">Division</td><td style="text-align: center">/</td><td style="text-align: center">[/ m1 m2 m3] -&gt; m1 ÷ m2 ÷ m3</td></tr>
+<tr><td style="text-align: center">Power</td><td style="text-align: center">**</td><td style="text-align: center">Evaluates just like division</td></tr>
+<tr><td style="text-align: center">Remainder</td><td style="text-align: center">%</td><td style="text-align: center">evaluates just like division</td></tr>
+</tbody></table>
+<h2 id="unary-minus-operation"><a class="header" href="#unary-minus-operation">Unary Minus Operation</a></h2>
+<p>There're not specific way to use unary minus Operations in mewl, for example, [+ mew -mew]
+This should've been evaluated like this , (+1 -1) = 0. But mewl will throw an error if you do something like that. If we want to get -1, we have to do something like this</p>
+<pre><code class="language-lisp">[- [- mew mew] mew]
+</code></pre>
+<p>It's basically, \(0-x = -x\) </p>
+<h2 id="bitwise-operations"><a class="header" href="#bitwise-operations">Bitwise Operations</a></h2>
+<p>⚠️ Important Reminder : As Bitwise operations cannot be applied on floating point numbers; and in mewl all numbers are 64bit floats, so before doing any bitwise operation numbers are converted to 64bit signed integers and the answer returned is converted to float from signed integer</p>
+<table><thead><tr><th style="text-align: center">Operation</th><th style="text-align: center">Symbol</th><th style="text-align: center">Notes</th></tr></thead><tbody>
+<tr><td style="text-align: center">Shift right</td><td style="text-align: center">&gt;&gt;</td><td style="text-align: center">[&gt;&gt; m1 m2 m3] -&gt; m1 &gt;&gt; m2 &gt;&gt; m3</td></tr>
+<tr><td style="text-align: center">Shift Left</td><td style="text-align: center">&lt;&lt;</td><td style="text-align: center">Same as above</td></tr>
+<tr><td style="text-align: center">XOR</td><td style="text-align: center">^</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">AND</td><td style="text-align: center">&amp;&amp;</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">OR</td><td style="text-align: center">##</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">NOT</td><td style="text-align: center">!!</td><td style="text-align: center">[Note1]</td></tr>
+</tbody></table>
+<p>🙀 [Note1] : As bitwise not <code>!!</code> Is an unary operation there can be unexpected behaviors if applied to an expression list, for that it will only be applied on the first element of an expression.</p>
+<h2 id="comparisons-boolean-operations"><a class="header" href="#comparisons-boolean-operations">Comparisons (Boolean Operations)</a></h2>
+<p>Important Note: In mewl <code>True = 1.0</code> (mew) and <code>False = 0.0</code> ([- mew mew])</p>
+<table><thead><tr><th style="text-align: center">Operation</th><th style="text-align: center">Symbol</th><th style="text-align: center">Note</th></tr></thead><tbody>
+<tr><td style="text-align: center">Is equal</td><td style="text-align: center">==</td><td style="text-align: center">[== m1 m2 m3] -&gt; m1== m2==m3</td></tr>
+<tr><td style="text-align: center">Not equal</td><td style="text-align: center">!=</td><td style="text-align: center">similar to previous</td></tr>
+<tr><td style="text-align: center">Less than</td><td style="text-align: center">&lt;</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">Less than or equal</td><td style="text-align: center">&lt;=</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">Greater than</td><td style="text-align: center">&gt;</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">Greater than or equal</td><td style="text-align: center">&gt;=</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">Or</td><td style="text-align: center">#</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">And</td><td style="text-align: center">&amp;</td><td style="text-align: center">&quot;</td></tr>
+<tr><td style="text-align: center">Not</td><td style="text-align: center">!</td><td style="text-align: center">As this is an unary operation so it's applied on the first element of the given expression</td></tr>
+</tbody></table>
+<h1 id=""><a class="header" href="#"></a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="reading-from-stdin-and-writing-to-stdout"><a class="header" href="#reading-from-stdin-and-writing-to-stdout">Reading from Stdin and Writing to Stdout</a></h1>
+<h2 id="stdout"><a class="header" href="#stdout">Stdout</a></h2>
+<p>To print something on the stdout we have two options, first we can print the expression or atom as is or we can convert the expression values to ASCII characters and print them to stdout.</p>
+<table><thead><tr><th style="text-align: center">Symbol</th><th style="text-align: center">What</th><th style="text-align: center">Notes</th></tr></thead><tbody>
+<tr><td style="text-align: center"><code>::</code></td><td style="text-align: center">Print the expression or atom to stdout as-is</td><td style="text-align: center"><code>[:: mew mew]</code> will print <code>1 1</code> to stdout</td></tr>
+<tr><td style="text-align: center"><code>:::</code></td><td style="text-align: center">Convert the next atom/expression to ASCII characters and print to stdout</td><td style="text-align: center"><code>[:::['[+[* mewmewmew mewmew] mew] mewmew]]</code> will print <code>H</code> to stdout</td></tr>
+<tr><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td></tr>
+</tbody></table>
+<h4 id="examples"><a class="header" href="#examples">Examples</a></h4>
+<p>Here's a overly complicated <code>Hello World</code> program in mewl</p>
+<pre><code class="language-lisp">[=mew [[+[* mewmewmew mewmew] mew] mewmew] ] //H
+[=mewmew [mew [- mew mew] mew]] //e
+[=mewmewmew [mew [- mew mew] [* mewmewmewmew mewmew]]] //l
+[=mewmewmewmew [mew mew mew]] //o
+[=mewmewmewmewmew [mewmewmew mewmew]] //SPACE
+[=mewmewmewmewmewmew [[* mewmewmewmew mewmew] mewmewmewmewmewmewmew]] //W
+[=mewmewmewmewmewmewmew [mew mew mewmewmewmew]] //r
+[=mewmewmewmewmewmewmewmew [mew [- mew mew] [- mew mew]]] //d
+[=mewmewmewmewmewmewmewmewmew [mewmewmew mewmewmew]] //!
+
+[::: ~mew //H
+~mewmew //e
+~mewmewmew //l
+~mewmewmew //l
+~mewmewmewmew //o
+~mewmewmewmewmew //SPACE 
+~mewmewmewmewmewmew //W
+~mewmewmewmew //o
+~mewmewmewmewmewmewmew //r
+~mewmewmew //l
+~mewmewmewmewmewmewmewmew //d
+~mewmewmewmewmewmewmewmewmew //!
+]
+</code></pre>
+<h2 id="stdin"><a class="header" href="#stdin">Stdin</a></h2>
+<p>[TODO]</p>
 
                     </main>
 
@@ -208,7 +287,9 @@ Lets write 100:</p>
         <script type="text/javascript" src="mermaid-init.js"></script>
         <script type="text/javascript">
         window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
         });
         </script>
     </body>
