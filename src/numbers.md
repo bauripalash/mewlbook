@@ -31,26 +31,24 @@ How about 2022:
 [mewmew [- mew mew] mewmew mewmew]
 ```
 
- Above two examples will only work when assigning to a variable, but if we want to use these expressions anywhere we have to put this **`** character just after the opening bracket. Something like this:
+ Above two examples will only work when assigning to a variable, but if we want to use these expressions anywhere we have to put this **'** single single quote character just after the opening bracket. Something like this:
 
 ```lisp
-[` mew mew [+ mew mew]] //is equal to 112
+[' mew mew [+ mew mew]] //is equal to 112
 ```
 
-> The **`** character can be found be just below the Escape key and just above the Tab key.
-
-
+> 
 
 It is being evaluated like this:
 
 ```mermaid
 flowchart TD;
-    A["[` mew mew [+ mew mew]"] --> B["[` mew mew [2]]"]
-    B-->C["[` 1 1 2]"]
-    C -- Output --> D[112]
+    A["[' mew mew [+ mew mew]"] --> B["[' mew mew [2]]"]
+    B-->C["[' 1 1 2]"]
+    C -- Output --> D[112]
 ```
 
-But If we remove the **`** character and it is not being assigned to a variable, it is going to be evaluated like this:
+But If we remove this **'** character and it is not being assigned to a variable or being printed to the stdout, it is going to be evaluated like this and will throw an error:
 
 ```mermaid
 flowchart TD;
