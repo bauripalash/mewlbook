@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Numbers - The Mewl Language</title>
+        <title>Identifiers &amp; Assignment - The Mewl Language</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="User Guide for the mewl programming language">
@@ -77,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="numbers.html" class="active"><strong aria-hidden="true">2.</strong> Numbers</a></li><li class="chapter-item expanded "><a href="id_assign.html"><strong aria-hidden="true">3.</strong> Identifiers & Assignment</a></li><li class="chapter-item expanded "><a href="ops.html"><strong aria-hidden="true">4.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="stdout_stdin.html"><strong aria-hidden="true">5.</strong> Stdout & Stdin</a></li><li class="chapter-item expanded "><a href="example_progs.html"><strong aria-hidden="true">6.</strong> Example Programs</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="numbers.html"><strong aria-hidden="true">2.</strong> Numbers</a></li><li class="chapter-item expanded "><a href="id_assign.html" class="active"><strong aria-hidden="true">3.</strong> Identifiers & Assignment</a></li><li class="chapter-item expanded "><a href="ops.html"><strong aria-hidden="true">4.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="stdout_stdin.html"><strong aria-hidden="true">5.</strong> Stdout & Stdin</a></li><li class="chapter-item expanded "><a href="example_progs.html"><strong aria-hidden="true">6.</strong> Example Programs</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -136,50 +136,49 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="numbers"><a class="header" href="#numbers">Numbers</a></h1>
-<p>There is no concept of traditional numbers  in mewl instead we use <code>mew</code>s.
-For example you want to write <code>5</code> you could do something like this</p>
-<pre><code class="language-lisp">mewmewmewmewmew
-</code></pre>
-<p>or maybe 2</p>
-<pre><code class="language-lisp">mewmew
-</code></pre>
-<p>So basically 1 <code>mew</code> is equivalent to 1; 2 <code>mew</code>s is equivalent to 2 and so on.</p>
-<p>:warning:  Important Note: We don't have zero, to get zero we use subtraction <code>[- mew mew]</code> (it's like <code>1-1</code> = 0) [Mathematical operations will be discussed later]</p>
-<p>But what about large numbers like 100 , 2022 , 500 or maybe <code>-10</code> , <code>-3.1</code>, for that we have some shortcuts, like these :
-To write large numbers we can use mathematics, like <code>[* mewmew mewmewmewmewmew]</code> is equal to 10, or multiplying that expression with itself we can get 100. But that's cumbersome and complicated! Instead we have a simpler (relatively) syntax shortcut.
-Lets write 100:</p>
-<pre><code class="language-lisp">[mew [- mew mew] [- mew mew]]
-</code></pre>
-<p>How about 2022:</p>
-<pre><code class="language-lisp">[mewmew [- mew mew] mewmew mewmew]
-</code></pre>
-<p>Above two examples will only work when assigning to a variable, but if we want to use these expressions anywhere we have to put this <strong>'</strong> single single quote character just after the opening bracket. Something like this:</p>
-<pre><code class="language-lisp">[' mew mew [+ mew mew]] //is equal to 112
-</code></pre>
+                        <h1 id="identifiers-and-assignment"><a class="header" href="#identifiers-and-assignment">Identifiers and Assignment</a></h1>
+<p>In mewl, identifiers just look like mew numbers, so be careful when reading/writing mewl programs.</p>
 <blockquote>
+<p><strong>Some backstory</strong>:</p>
+<p>While I was designing mewl identifiers, I was confused about identifiers, I wanted something crazy but usable. So I just decided to go with <code>mew</code>, but to distinguish numbers from identifiers, I needed something <em>special</em> .  Now, please continue.</p>
 </blockquote>
-<p>It is being evaluated like this:</p>
-<pre class="mermaid">flowchart TD;
-    A[&quot;[' mew mew [+ mew mew]&quot;] --&gt; B[&quot;[' mew mew [2]]&quot;]
-    B--&gt;C[&quot;[' 1 1 2]&quot;]
-    C -- Output --&gt; D[112]
-</pre>
-<p>But If we remove this <strong>'</strong> character and it is not being assigned to a variable or being printed to the stdout, it is going to be evaluated like this and will throw an error:</p>
-<pre class="mermaid">flowchart TD;
-    A[&quot;[ mew mew [+ mew mew]]&quot;] --&gt; B[&quot;[mew mew 2]&quot;]
-    B--&gt;C[&quot;[ 1 1 2]&quot;]
-    C--&gt;D{Error: No operation to do!}
-</pre>
+<h3 id="identifiersvariables"><a class="header" href="#identifiersvariables">Identifiers/Variables</a></h3>
+<p>In mewl, identifiers look something like this -&gt; <code>~mew</code> , <code>~mewmew</code> etc.</p>
+<p>So basically, Identifiers follow the same syntax as mew numbers but with a leading <code>~</code> (tilde) character.</p>
+<p><code>~mew</code> , <code>~mewmew</code> , <code>~mewmewmewmewmew</code> , these all are identifiers.</p>
+<h2 id="assignment"><a class="header" href="#assignment">Assignment</a></h2>
+<p>Assignments are little awkward, it'd be easy to understand with examples:</p>
+<pre><code>[=mew [+ mew mew]]
+</code></pre>
+<p>This expression assigns 2 to the variable <code>~mew</code> and this expression <code>[:: ~mew]</code> would print the value of variable <code>~mew</code> (which is 2 )</p>
+<p>If you want to assign something to variable, write the identifier with a leading <code>=</code> (equal sign) without any space(s).</p>
+<p><strong>In short</strong>, <code>=mew</code> tells the interpreter to evaluate the following expression(s) and store it in variable <code>~mew</code>. </p>
+<p>For example,</p>
+<p><code>[=mewmew [* mewmew mewmew]]</code> would store 9 in a variable which can be accessed via <code>~mewmew</code>.</p>
+<p>I know, it is confusing. </p>
+<h2 id="more-examples"><a class="header" href="#more-examples">More examples:</a></h2>
+<ul>
+<li>
+<p><code>[=mewmewmew [+ mew mew [* mewmew mewmew]]]</code> would store 6 to a variable which to be accessed via <code>~mewmewmew</code></p>
+</li>
+<li>
+<p>Another one</p>
+<pre><code class="language-lisp">[=mewmewmewmewmew [' mew mew mewmew]]
+[:: ~mewmewmewmewmew]
+</code></pre>
+<p>it would print 112 to stdout</p>
+</li>
+</ul>
+<p><strong>[Info Note]</strong>: Assiging something using <code>=mewmewmewmewmew</code> wouldn't change the meaning of <code>mewmewmewmewmew</code> as a mew number which still is <code>5</code></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="numbers.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="id_assign.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="ops.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -188,10 +187,10 @@ Lets write 100:</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="numbers.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="id_assign.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="ops.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

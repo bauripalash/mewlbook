@@ -78,7 +78,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="numbers.html"><strong aria-hidden="true">2.</strong> Numbers</a></li><li class="chapter-item expanded "><a href="ops.html"><strong aria-hidden="true">3.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="stdout_stdin.html"><strong aria-hidden="true">4.</strong> Stdout & Stdin</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="numbers.html"><strong aria-hidden="true">2.</strong> Numbers</a></li><li class="chapter-item expanded "><a href="id_assign.html"><strong aria-hidden="true">3.</strong> Identifiers & Assignment</a></li><li class="chapter-item expanded "><a href="ops.html"><strong aria-hidden="true">4.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="stdout_stdin.html"><strong aria-hidden="true">5.</strong> Stdout & Stdin</a></li><li class="chapter-item expanded "><a href="example_progs.html"><strong aria-hidden="true">6.</strong> Example Programs</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -179,6 +179,40 @@ Lets write 100:</p>
     B--&gt;C[&quot;[ 1 1 2]&quot;]
     C--&gt;D{Error: No operation to do!}
 </pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="identifiers-and-assignment"><a class="header" href="#identifiers-and-assignment">Identifiers and Assignment</a></h1>
+<p>In mewl, identifiers just look like mew numbers, so be careful when reading/writing mewl programs.</p>
+<blockquote>
+<p><strong>Some backstory</strong>:</p>
+<p>While I was designing mewl identifiers, I was confused about identifiers, I wanted something crazy but usable. So I just decided to go with <code>mew</code>, but to distinguish numbers from identifiers, I needed something <em>special</em> .  Now, please continue.</p>
+</blockquote>
+<h3 id="identifiersvariables"><a class="header" href="#identifiersvariables">Identifiers/Variables</a></h3>
+<p>In mewl, identifiers look something like this -&gt; <code>~mew</code> , <code>~mewmew</code> etc.</p>
+<p>So basically, Identifiers follow the same syntax as mew numbers but with a leading <code>~</code> (tilde) character.</p>
+<p><code>~mew</code> , <code>~mewmew</code> , <code>~mewmewmewmewmew</code> , these all are identifiers.</p>
+<h2 id="assignment"><a class="header" href="#assignment">Assignment</a></h2>
+<p>Assignments are little awkward, it'd be easy to understand with examples:</p>
+<pre><code>[=mew [+ mew mew]]
+</code></pre>
+<p>This expression assigns 2 to the variable <code>~mew</code> and this expression <code>[:: ~mew]</code> would print the value of variable <code>~mew</code> (which is 2 )</p>
+<p>If you want to assign something to variable, write the identifier with a leading <code>=</code> (equal sign) without any space(s).</p>
+<p><strong>In short</strong>, <code>=mew</code> tells the interpreter to evaluate the following expression(s) and store it in variable <code>~mew</code>. </p>
+<p>For example,</p>
+<p><code>[=mewmew [* mewmew mewmew]]</code> would store 9 in a variable which can be accessed via <code>~mewmew</code>.</p>
+<p>I know, it is confusing. </p>
+<h2 id="more-examples"><a class="header" href="#more-examples">More examples:</a></h2>
+<ul>
+<li>
+<p><code>[=mewmewmew [+ mew mew [* mewmew mewmew]]]</code> would store 6 to a variable which to be accessed via <code>~mewmewmew</code></p>
+</li>
+<li>
+<p>Another one</p>
+<pre><code class="language-lisp">[=mewmewmewmewmew [' mew mew mewmew]]
+[:: ~mewmewmewmewmew]
+</code></pre>
+<p>it would print 112 to stdout</p>
+</li>
+</ul>
+<p><strong>[Info Note]</strong>: Assiging something using <code>=mewmewmewmewmew</code> wouldn't change the meaning of <code>mewmewmewmewmew</code> as a mew number which still is <code>5</code></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="basic-operations"><a class="header" href="#basic-operations">Basic Operations</a></h1>
 <h2 id="binary-operations"><a class="header" href="#binary-operations">Binary Operations</a></h2>
 <p>Mewl supports few commonly used binary operators such as addition, subtraction, division, multiplication etc.</p>
@@ -222,7 +256,7 @@ This should've been evaluated like this , (+1 -1) = 0. But mewl will throw an er
 </tbody></table>
 <h1 id=""><a class="header" href="#"></a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reading-from-stdin-and-writing-to-stdout"><a class="header" href="#reading-from-stdin-and-writing-to-stdout">Reading from Stdin and Writing to Stdout</a></h1>
-<h2 id="stdout"><a class="header" href="#stdout">Stdout</a></h2>
+<h2 id="writing-to-stdout"><a class="header" href="#writing-to-stdout">Writing to Stdout</a></h2>
 <p>To print something on the stdout we have two options, first we can print the expression or atom as is or we can convert the expression values to ASCII characters and print them to stdout.</p>
 <table><thead><tr><th style="text-align: center">Symbol</th><th style="text-align: center">What</th><th style="text-align: center">Notes</th></tr></thead><tbody>
 <tr><td style="text-align: center"><code>::</code></td><td style="text-align: center">Print the expression or atom to stdout as-is</td><td style="text-align: center"><code>[:: mew mew]</code> will print <code>1 1</code> to stdout</td></tr>
@@ -255,8 +289,72 @@ This should've been evaluated like this , (+1 -1) = 0. But mewl will throw an er
 ~mewmewmewmewmewmewmewmewmew //!
 ]
 </code></pre>
-<h2 id="stdin"><a class="header" href="#stdin">Stdin</a></h2>
-<p>[TODO]</p>
+<h2 id="reading-from-stdin"><a class="header" href="#reading-from-stdin">Reading From Stdin</a></h2>
+<table><thead><tr><th>Symbol</th><th>What?</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>\|&gt;</code></td><td>Read a mew number or normal number from Stdin and store to a variable</td><td>Trailing whitespace gets trimmed</td></tr>
+<tr><td>`|</td><td>&gt;`</td><td>Read a string from stdin, calculate the length of the string and store to a variable</td></tr>
+</tbody></table>
+<h4 id="read-mewnormal-number-from-stdin"><a class="header" href="#read-mewnormal-number-from-stdin">Read Mew/Normal Number from Stdin</a></h4>
+<p>Syntax of reading mew/normal number from stdin is:</p>
+<pre><code>[|&gt; Variable_To_Store_Number]
+</code></pre>
+<p>Here's a simple example,</p>
+<pre><code class="language-lisp">[|&gt; =mew]
+[:: ~mew]
+</code></pre>
+<p>This example, reads a number/mewnum from stdin and prints it to stdout.</p>
+<ul>
+<li>Learn about <a href="./id_assign.html">Identifiers/Assignment</a></li>
+</ul>
+<h4 id="read-a-string-from-stdin-and-store-the-length"><a class="header" href="#read-a-string-from-stdin-and-store-the-length">Read a String from Stdin and store the length</a></h4>
+<p>Syntax is just like reading number from stdin,</p>
+<pre><code>[||&gt; =mew]
+[:: ~mew]
+</code></pre>
+<p>Just like before, read a string from stdin and print the length of the string.</p>
+<h2 id="exampleusage"><a class="header" href="#exampleusage">Example/Usage</a></h2>
+<h5 id="a-count-the-character-of-a-file-using-mewl"><a class="header" href="#a-count-the-character-of-a-file-using-mewl">a. Count the character of a file using mewl</a></h5>
+<p>First, let's create a simple script (it is just the above example code)</p>
+<pre><code class="language-lisp">[||&gt; =mew]
+[:: ~mew]
+</code></pre>
+<p>save it with filename <code>char_len.mew.txt</code></p>
+<p>Now, we need the target file, from which we will count characters from, for this example we will create a file,</p>
+<pre><code class="language-bash">$ echo &quot;Foo bar&quot; &gt;foobar.txt
+</code></pre>
+<p>Now, run</p>
+<pre><code class="language-shell">$ cat foobar.txt | mewl char_len.mew.txt
+</code></pre>
+<p>If everything is right, you'll see <code>7</code> in the terminal!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="example-programs"><a class="header" href="#example-programs">Example Programs</a></h1>
+<h3 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h3>
+<pre><code class="language-lisp">[=mew [[+[* mewmewmew mewmew] mew] mewmew] ] //H
+[=mewmew [mew [- mew mew] mew]] //e
+[=mewmewmew [mew [- mew mew] [* mewmewmewmew mewmew]]] //l
+[=mewmewmewmew [mew mew mew]] //o
+[=mewmewmewmewmew [mewmewmew mewmew]] //SPACE
+[=mewmewmewmewmewmew [[* mewmewmewmew mewmew] mewmewmewmewmewmewmew]] //W
+[=mewmewmewmewmewmewmew [mew mew mewmewmewmew]] //r
+[=mewmewmewmewmewmewmewmew [mew [- mew mew] [- mew mew]]] //d
+[=mewmewmewmewmewmewmewmewmew [mewmewmew mewmewmew]] //!
+
+[::: ~mew //H
+~mewmew //e
+~mewmewmew //l
+~mewmewmew //l
+~mewmewmewmew //o
+~mewmewmewmewmew //SPACE 
+~mewmewmewmewmewmew //W
+~mewmewmewmew //o
+~mewmewmewmewmewmewmew //r
+~mewmewmew //l
+~mewmewmewmewmewmewmewmew //d
+~mewmewmewmewmewmewmewmewmew //!
+]
+</code></pre>
+<h3 id="fibonacci"><a class="header" href="#fibonacci">Fibonacci</a></h3>
+<pre><code class="language-lisp">
+</code></pre>
 
                     </main>
 

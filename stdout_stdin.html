@@ -77,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="numbers.html"><strong aria-hidden="true">2.</strong> Numbers</a></li><li class="chapter-item expanded "><a href="ops.html"><strong aria-hidden="true">3.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="stdout_stdin.html" class="active"><strong aria-hidden="true">4.</strong> Stdout & Stdin</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="numbers.html"><strong aria-hidden="true">2.</strong> Numbers</a></li><li class="chapter-item expanded "><a href="id_assign.html"><strong aria-hidden="true">3.</strong> Identifiers & Assignment</a></li><li class="chapter-item expanded "><a href="ops.html"><strong aria-hidden="true">4.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="stdout_stdin.html" class="active"><strong aria-hidden="true">5.</strong> Stdout & Stdin</a></li><li class="chapter-item expanded "><a href="example_progs.html"><strong aria-hidden="true">6.</strong> Example Programs</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -137,7 +137,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="reading-from-stdin-and-writing-to-stdout"><a class="header" href="#reading-from-stdin-and-writing-to-stdout">Reading from Stdin and Writing to Stdout</a></h1>
-<h2 id="stdout"><a class="header" href="#stdout">Stdout</a></h2>
+<h2 id="writing-to-stdout"><a class="header" href="#writing-to-stdout">Writing to Stdout</a></h2>
 <p>To print something on the stdout we have two options, first we can print the expression or atom as is or we can convert the expression values to ASCII characters and print them to stdout.</p>
 <table><thead><tr><th style="text-align: center">Symbol</th><th style="text-align: center">What</th><th style="text-align: center">Notes</th></tr></thead><tbody>
 <tr><td style="text-align: center"><code>::</code></td><td style="text-align: center">Print the expression or atom to stdout as-is</td><td style="text-align: center"><code>[:: mew mew]</code> will print <code>1 1</code> to stdout</td></tr>
@@ -170,8 +170,43 @@
 ~mewmewmewmewmewmewmewmewmew //!
 ]
 </code></pre>
-<h2 id="stdin"><a class="header" href="#stdin">Stdin</a></h2>
-<p>[TODO]</p>
+<h2 id="reading-from-stdin"><a class="header" href="#reading-from-stdin">Reading From Stdin</a></h2>
+<table><thead><tr><th>Symbol</th><th>What?</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>\|&gt;</code></td><td>Read a mew number or normal number from Stdin and store to a variable</td><td>Trailing whitespace gets trimmed</td></tr>
+<tr><td>`|</td><td>&gt;`</td><td>Read a string from stdin, calculate the length of the string and store to a variable</td></tr>
+</tbody></table>
+<h4 id="read-mewnormal-number-from-stdin"><a class="header" href="#read-mewnormal-number-from-stdin">Read Mew/Normal Number from Stdin</a></h4>
+<p>Syntax of reading mew/normal number from stdin is:</p>
+<pre><code>[|&gt; Variable_To_Store_Number]
+</code></pre>
+<p>Here's a simple example,</p>
+<pre><code class="language-lisp">[|&gt; =mew]
+[:: ~mew]
+</code></pre>
+<p>This example, reads a number/mewnum from stdin and prints it to stdout.</p>
+<ul>
+<li>Learn about <a href="./id_assign.html">Identifiers/Assignment</a></li>
+</ul>
+<h4 id="read-a-string-from-stdin-and-store-the-length"><a class="header" href="#read-a-string-from-stdin-and-store-the-length">Read a String from Stdin and store the length</a></h4>
+<p>Syntax is just like reading number from stdin,</p>
+<pre><code>[||&gt; =mew]
+[:: ~mew]
+</code></pre>
+<p>Just like before, read a string from stdin and print the length of the string.</p>
+<h2 id="exampleusage"><a class="header" href="#exampleusage">Example/Usage</a></h2>
+<h5 id="a-count-the-character-of-a-file-using-mewl"><a class="header" href="#a-count-the-character-of-a-file-using-mewl">a. Count the character of a file using mewl</a></h5>
+<p>First, let's create a simple script (it is just the above example code)</p>
+<pre><code class="language-lisp">[||&gt; =mew]
+[:: ~mew]
+</code></pre>
+<p>save it with filename <code>char_len.mew.txt</code></p>
+<p>Now, we need the target file, from which we will count characters from, for this example we will create a file,</p>
+<pre><code class="language-bash">$ echo &quot;Foo bar&quot; &gt;foobar.txt
+</code></pre>
+<p>Now, run</p>
+<pre><code class="language-shell">$ cat foobar.txt | mewl char_len.mew.txt
+</code></pre>
+<p>If everything is right, you'll see <code>7</code> in the terminal!</p>
 
                     </main>
 
@@ -179,6 +214,9 @@
                         <!-- Mobile navigation buttons -->
                             <a rel="prev" href="ops.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="example_progs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
                     </nav>
@@ -188,6 +226,9 @@
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                     <a rel="prev" href="ops.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="example_progs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
