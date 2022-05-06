@@ -9,3 +9,5 @@
 * [Basic Operations](./ops.md)
 
 * [Stdout & Stdin](./stdout_stdin.md)
+
+* [Example Programs](./example_progs.md)
