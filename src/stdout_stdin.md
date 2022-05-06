@@ -1,6 +1,6 @@
 # Reading from Stdin and Writing to Stdout
 
-## Stdout
+## Writing to Stdout
 
 To print something on the stdout we have two options, first we can print the expression or atom as is or we can convert the expression values to ASCII characters and print them to stdout.
 
@@ -40,8 +40,66 @@ Here's a overly complicated `Hello World` program in mewl
 ]
 ```
 
+## Reading From Stdin
 
+| Symbol | What?                                                                 | Notes                                                                                |
+| ------ | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `\|>`  | Read a mew number or normal number from Stdin and store to a variable | Trailing whitespace gets trimmed                                                     |
+| `\|    | >`                                                                    | Read a string from stdin, calculate the length of the string and store to a variable |
 
-## Stdin
+#### Read Mew/Normal Number from Stdin
 
-[TODO]
+Syntax of reading mew/normal number from stdin is:
+
+```
+[|> Variable_To_Store_Number]
+```
+
+Here's a simple example,
+
+```lisp
+[|> =mew]
+[:: ~mew]
+```
+
+This example, reads a number/mewnum from stdin and prints it to stdout.
+
+* Learn about [Identifiers/Assignment](./id_assign.md)
+
+#### Read a String from Stdin and store the length
+
+Syntax is just like reading number from stdin,
+
+```
+[||> =mew]
+[:: ~mew]
+```
+
+Just like before, read a string from stdin and print the length of the string.
+
+## Example/Usage
+
+##### a. Count the character of a file using mewl
+
+First, let's create a simple script (it is just the above example code)
+
+```lisp
+[||> =mew]
+[:: ~mew]
+```
+
+save it with filename `char_len.mew.txt`
+
+Now, we need the target file, from which we will count characters from, for this example we will create a file,
+
+```bash
+$ echo "Foo bar" >foobar.txt
+```
+
+Now, run
+
+```shell
+$ cat foobar.txt | mewl char_len.mew.txt
+```
+
+If everything is right, you'll see `7` in the terminal!
